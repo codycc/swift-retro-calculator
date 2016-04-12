@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         case Subtract = "-"
         case Add = "+"
         case Empty = "Empty"
+        case Clear = "Clear"
         
     }
     
@@ -29,6 +30,7 @@ class ViewController: UIViewController {
     var rightValStr = ""
     var currentOperation: Operation = Operation.Empty
     var result = ""
+    
     
     
     override func viewDidLoad() {
@@ -71,6 +73,16 @@ class ViewController: UIViewController {
         processOperation(currentOperation)
     }
     
+    @IBAction func onClearPressed(sender: AnyObject) {
+        playSound()
+        runningNumber = ""
+        outputLbl.text = String(0.0)
+        leftValStr = ""
+        rightValStr = ""
+        
+        
+    }
+    
     
     func processOperation(op: Operation) {
         playSound()
@@ -80,7 +92,7 @@ class ViewController: UIViewController {
             //A user selected an operator, but then selected another operator without 
             // first entering a number
             
-            if runningNumber != "" {
+            if runningNumber != ""  {
                 rightValStr = runningNumber
                 runningNumber = ""
                 
@@ -103,6 +115,7 @@ class ViewController: UIViewController {
             } else {
                 //This is the first time an operator has been pressed
                 leftValStr = runningNumber
+            
                 runningNumber = ""
                 currentOperation = op
             }
